@@ -1,63 +1,70 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Skills } from "./skills"
+import { apiRequest } from "@/lib/utils"
 
-interface HeroProps {
-  user?: {
+
+type user = {
     name: string
     title: string
     about: string
     profileImage?: string
     email?: string
     location?: string
-  }
 }
 
-export function Hero({ user }: HeroProps) {
-  const defaultUser = {
-    name: user?.name || "John Doe",
-    title: user?.title || "Full Stack Developer",
-    about: user?.about || "Passionate developer with expertise in modern web technologies. I love building scalable applications and exploring new frameworks. Always eager to learn and contribute to meaningful projects.",
-    profileImage: user?.profileImage || "https://via.placeholder.com/200",
-    email: user?.email || "john.doe@example.com",
-    location: user?.location || "San Francisco, CA"
-  }
 
-  return (
-    <section className="w-full py-6">
-      <Card className="border shadow-sm">
-        <CardHeader>
-          <div className="flex flex-col md:flex-row gap-6 items-center">
-            <img 
-              src={defaultUser.profileImage} 
-              alt={defaultUser.name}
-              className="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-muted shadow-md"
-            />
-            <div className="flex-1 text-center md:text-left space-y-2">
-              <CardTitle className="text-3xl md:text-5xl font-bold tracking-tight mb-2 text-primary">
-                {defaultUser.name}
-              </CardTitle>
-              <CardDescription className="text-xl md:text-2xl font-medium text-foreground">
-                {defaultUser.title}
-              </CardDescription>
-              <div className="flex flex-col sm:flex-row gap-4 mt-4 text-sm md:text-base text-muted-foreground justify-center md:justify-start">
-                <span className="flex items-center gap-2">
-                  ✉️ {defaultUser.email}
-                </span>
-                <span className="flex items-center gap-2">
-                  📍 {defaultUser.location}
-                </span>
-              </div>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4 max-w-4xl">
-            <h3 className="text-xl font-bold border-b pb-2">About</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              {defaultUser.about}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </section>
-  )
+export async function Hero() {
+
+    const defaultUser = await apiRequest("profile")
+    return (
+        <section className="w-full min-h-[50vh] flex items-center py-8 md:py-12">
+            <Card className="border shadow-sm w-full">
+                <CardHeader className="p-6 md:p-8">
+                    <Card className="w-full p-5">
+                        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start w-full">
+                            <img
+                                src={defaultUser.profileImage?? "ll"}
+                                alt={defaultUser.user.name}
+                                className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 border-muted shadow-md shrink-0"
+                            />
+                            <Card className="w-full p-5">
+                                <div className="flex-1 text-center md:text-left space-y-3 w-full">
+                                    <CardTitle className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-3 text-primary">
+                                        {defaultUser.user.name}
+                                    </CardTitle>
+                                    <hr />
+                                    <CardDescription className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground">
+                                        {defaultUser.title}
+                                    </CardDescription>
+                                    <div className="flex flex-col sm:flex-row gap-4 mt-6 text-base md:text-lg lg:text-xl text-muted-foreground justify-center md:justify-start">
+                                        <span className="flex items-center gap-2">
+                                            ✉️ {defaultUser.user.email}
+                                        </span>
+                                        <span className="flex items-center gap-2">
+                                            📍 {defaultUser.location}
+                                        </span>
+                                    </div>
+                                </div>
+                            </Card>
+                        </div>
+                    </Card>
+                </CardHeader>
+                <CardContent className="p-6 md:p-8">
+                    <div className="space-y-20 w-full">
+
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold border-b pb-3">About</h3>
+                            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed">
+                                {defaultUser.user.bio}
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold border-b pb-3">Skills</h3>
+                            <Skills />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </section>
+    )
 }

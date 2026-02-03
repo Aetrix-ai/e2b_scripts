@@ -3,15 +3,23 @@ import { Skills } from "@/components/skills"
 import { Achievements } from "@/components/achievments"
 import { Projects } from "@/components/project"
 
+import { Card, CardContent } from "@/components/ui/card"
+
+
 export default function Page() {
-  return (
-    <main className="min-h-screen bg-slate-50/50">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <Hero />
-        <Skills />
-        <Achievements />
-        <Projects />
-      </div>
-    </main>
-  )
+
+    return (
+
+        <div className="p-50 mx-auto ">
+           
+                <CardContent>
+                    <Hero />
+                    <Achievements />
+                    <Projects />
+                </CardContent>
+            
+
+        </div>
+
+    )
 }

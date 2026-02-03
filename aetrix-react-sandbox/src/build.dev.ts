@@ -4,7 +4,7 @@ import { template } from "./template";
 
 async function main() {
   await Template.build(template, {
-    alias: "aetrix-sandbox-dev",
+    alias: "aetrix-dev-portfolio",
     cpuCount: 8,
     memoryMB: 8192,
     onBuildLogs: defaultBuildLogger(),
