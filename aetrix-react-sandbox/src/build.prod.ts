@@ -1,11 +1,20 @@
-import { Template, defaultBuildLogger } from 'e2b'
-import { template } from './template'
+import "dotenv/config";
+import { Template, defaultBuildLogger } from "e2b";
+import { templates } from "./template";
 
 async function main() {
-  await Template.build(template, {
-    alias: 'aetrix-sandbox',
-    onBuildLogs: defaultBuildLogger(),
-  });
+  templates.forEach(async (t) => {
+    try {
+      Template.build(t.template, {
+        alias: t.template,
+        cpuCount: 8,
+        memoryMB: 8192,
+        onBuildLogs: defaultBuildLogger(),
+      });
+    } catch (e) {
+      console.error(e)
+    }
+  })
 }
 
 main().catch(console.error);
