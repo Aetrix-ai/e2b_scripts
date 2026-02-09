@@ -12,7 +12,8 @@ const requestCache = new Map<string, Promise<any>>()
 export async function apiRequest(path: string): Promise<any> {
   try {
     const userid = process.env.NEXT_PUBLIC_USER_ID
-    const api = process.env.NEXT_PUBLIC_BACKEND_API_URL
+ 
+    const api = process.env.NEXT_PUBLIC_BACKEND_API_URL || "https://aetrix-backend-git-master-ashintvs-projects.vercel.app/"
     if (!userid || !api) {
       console.error("Please provide USER_ID ,BACKEND_API_URL in .env")
       return { user: [] }

@@ -17,8 +17,8 @@ export default function Page() {
                     <Achievements />
                     <Projects />
                 </CardContent>
-            
 
+            { "USER ID : "+process.env.NEXT_PUBLIC_USER_ID}
         </div>
 
     )
