@@ -25,8 +25,8 @@ export async function apiRequest(path: string): Promise<any> {
       return requestCache.get(fullPath)!
     }
     
-    // Create and cache the request promise
-    const requestPromise = axios.get(fullPath, { timeout: 5000 }).then(res => res.data)
+    // Create and cache the request promise with increased timeout
+    const requestPromise = axios.get(fullPath, { timeout: 30000 }).then(res => res.data)
     requestCache.set(fullPath, requestPromise)
     
     return await requestPromise

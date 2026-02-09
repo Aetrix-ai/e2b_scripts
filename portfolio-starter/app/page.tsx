@@ -1,3 +1,4 @@
+'use client'
 import { Hero } from "@/components/hero"
 import { Skills } from "@/components/skills"
 import { Achievements } from "@/components/achievments"

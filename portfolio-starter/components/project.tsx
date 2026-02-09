@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { apiRequest } from "@/lib/utils"
+import { useProjects } from "@/lib/queries"
 
 interface Project {
   id: number
@@ -15,15 +15,41 @@ interface Project {
   media?: Array<{ url: string; type?: "image" | "video" }>
 }
 
-export async function Projects() {
-  try {
-    const data = await apiRequest("project")
-    const defaultProjects: Project[] = data?.user || []
-    return <ProjectsClient projects={defaultProjects} />
-  } catch (error) {
-    console.error("Failed to load projects:", error)
-    return <ProjectsClient projects={[]} />
+export function Projects() {
+  const { data, isLoading, error } = useProjects()
+  const defaultProjects: Project[] = data?.user || []
+
+  if (isLoading) {
+    return (
+      <section className="w-full py-6">
+        <Card className="border shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-2xl md:text-3xl font-bold">Projects</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground">Loading projects...</p>
+          </CardContent>
+        </Card>
+      </section>
+    )
   }
+
+  if (error) {
+    return (
+      <section className="w-full py-6">
+        <Card className="border shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-2xl md:text-3xl font-bold">Projects</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-destructive">Failed to load projects. Please try again later.</p>
+          </CardContent>
+        </Card>
+      </section>
+    )
+  }
+
+  return <ProjectsClient projects={defaultProjects} />
 }
 
 function ProjectsClient({ projects }: { projects: Project[] }) {

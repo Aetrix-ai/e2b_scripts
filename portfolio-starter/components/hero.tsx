@@ -1,7 +1,8 @@
+'use client'
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skills } from "./skills"
-import { apiRequest } from "@/lib/utils"
-
+import { useProfile } from "@/lib/queries"
 
 type user = {
     name: string
@@ -12,10 +13,44 @@ type user = {
     location?: string
 }
 
+export function Hero() {
+    const { data: defaultUser, isLoading, error } = useProfile()
 
-export async function Hero() {
+    if (isLoading) {
+        return (
+            <section className="w-full min-h-[50vh] flex items-center py-8 md:py-12">
+                <Card className="border shadow-sm w-full">
+                    <CardHeader className="p-6 md:p-8">
+                        <p className="text-muted-foreground">Loading profile...</p>
+                    </CardHeader>
+                </Card>
+            </section>
+        )
+    }
 
-    const defaultUser = await apiRequest("profile")
+    if (error) {
+        return (
+            <section className="w-full min-h-[50vh] flex items-center py-8 md:py-12">
+                <Card className="border shadow-sm w-full">
+                    <CardHeader className="p-6 md:p-8">
+                        <p className="text-destructive">Failed to load profile. Please try again later.</p>
+                    </CardHeader>
+                </Card>
+            </section>
+        )
+    }
+
+    if (!defaultUser) {
+        return (
+            <section className="w-full min-h-[50vh] flex items-center py-8 md:py-12">
+                <Card className="border shadow-sm w-full">
+                    <CardHeader className="p-6 md:p-8">
+                        <p className="text-muted-foreground">No profile data available</p>
+                    </CardHeader>
+                </Card>
+            </section>
+        )
+    }
     return (
         <section className="w-full min-h-[50vh] flex items-center py-8 md:py-12">
             <Card className="border shadow-sm w-full">
