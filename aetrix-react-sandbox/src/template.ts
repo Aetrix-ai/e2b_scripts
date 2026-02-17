@@ -5,11 +5,13 @@ export const Portfoliotemplate: any = Template()
   .addMcpServer("filesystem")
   .runCmd("curl -fsSL https://code-server.dev/install.sh | sh")
   .gitClone("https://github.com/Aetrix-ai/e2b_scripts")
-  .runCmd("cd e2b_scripts/portfolio-starter && npm install")
-  .runCmd("cd e2b_scripts/portfolio-starter && npm run build")
-  .setStartCmd("cd e2b_scripts/portfolio-starter && code-server --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
+  .setWorkdir("/home/user/e2b_scripts/portfolio-starter")
+  .runCmd("npm install")
+  .runCmd("npm run build")
+  .setStartCmd("code-server --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
+  
 // Runtime commands
-``
+
 
 
 export const EnvOnly: any = Template()

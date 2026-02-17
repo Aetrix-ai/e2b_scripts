@@ -23,7 +23,6 @@ async function main() {
         memoryMB: 8192,
         onBuildLogs: defaultBuildLogger(),
       });
-
       success.push(t.name)
     } catch (e) {
       failed.push(t.name)
@@ -33,10 +32,10 @@ async function main() {
   }
 
   console.log(`\n \t Build success [${success.length} / ${count}]`)
-  if (failed.length > 0){
+  if (failed.length > 0) {
     console.error(`\n \t Build fail [${failed.length} / ${count}]`)
   }
- 
+
 }
 
 main().catch(console.error);
