@@ -5,7 +5,7 @@ export const Portfoliotemplate: any = Template()
   .addMcpServer("filesystem")
   .runCmd("curl -fsSL https://code-server.dev/install.sh | sh")
   .gitClone("https://github.com/Aetrix-ai/e2b_scripts")
-  .setWorkdir("/home/user/e2b_scripts/portfolio-starter")
+  .setWorkdir("/home/user/e2b_scripts/portfolio-starter-vite")
   .runCmd("npm install")
   .runCmd("npm run build")
   .setStartCmd("code-server --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
