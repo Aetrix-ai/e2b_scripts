@@ -11,6 +11,6 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: [".e2b.dev"],
+    allowedHosts: true,
   },
 })
