@@ -22,7 +22,7 @@ async function main() {
         cpuCount: 8,
         memoryMB: 8192,
         onBuildLogs: defaultBuildLogger(),
-        skipCache: true,
+        // skipCache: true,
       });
       success.push(t.name)
     } catch (e) {

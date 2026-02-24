@@ -13,14 +13,24 @@ export const Portfoliotemplate: any = Template()
 // Runtime commands
 
 
-
-export const EnvOnly: any = Template()
+export const Playground: any = Template()
   .fromTemplate("mcp-gateway")
   .addMcpServer("filesystem")
   .runCmd("curl -fsSL https://code-server.dev/install.sh | sh")
-  .runCmd("mkdir Workspace")
-  .setStartCmd("cd Workspace && code-serve --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
+  .gitClone("https://github.com/Aetrix-ai/e2b_scripts")
+  .setWorkdir("/home/user/e2b_scripts/play-ground")
+  .runCmd(["npm install", "npm run build"])
+  .setStartCmd("code-server --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
+
+// export const EnvOnly: any = Template()
+//   .fromTemplate("mcp-gateway")
+//   .addMcpServer("filesystem")
+//   .runCmd("curl -fsSL https://code-server.dev/install.sh | sh")
+//   .runCmd("mkdir Workspace")
+//   .setStartCmd("cd Workspace && code-serve --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
 // Runtime commands
+
+
 export const templates: {
   name: string,
   template: any
@@ -30,7 +40,7 @@ export const templates: {
     template: Portfoliotemplate
 
   }, {
-    name: "zero",
-    template: EnvOnly
+    name: "playground",
+    template: Playground
   }
 ]
