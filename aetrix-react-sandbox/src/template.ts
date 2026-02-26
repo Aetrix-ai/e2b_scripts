@@ -18,7 +18,7 @@ export const Playground: any = Template()
   .addMcpServer("filesystem")
   .runCmd("curl -fsSL https://code-server.dev/install.sh | sh")
   .gitClone("https://github.com/Aetrix-ai/e2b_scripts")
-  .setWorkdir("/home/user/e2b_scripts/play-ground")
+  .setWorkdir("/home/user/e2b_scripts/play-ground-vite")
   .runCmd(["npm install", "npm run build"])
   .setStartCmd("code-server --bind-addr 0.0.0.0:8080 --auth none .", waitForPort(8080));
 
@@ -35,11 +35,12 @@ export const templates: {
   name: string,
   template: any
 }[] = [
-  {
-    name: "portfolio",
-    template: Portfoliotemplate
+  // {
+  //   name: "portfolio",
+  //   template: Portfoliotemplate
 
-  }, {
+  // },
+   {
     name: "playground",
     template: Playground
   }
